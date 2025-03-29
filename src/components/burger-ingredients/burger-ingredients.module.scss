@@ -1,0 +1,14 @@
+.ingredients {
+	width: 50%;
+	float: right;
+	display: flex;
+	flex-direction: column;
+}
+
+.groups {
+	//	width: 660px;
+	height: 600px;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
