@@ -1,6 +1,8 @@
 import { AppHeader } from '../app-header/app-header';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
+import { ingredientsData } from '../utils/ingredients-data';
+
 import styles from './app.module.scss';
 
 export const App = () => {
@@ -8,8 +10,8 @@ export const App = () => {
 		<>
 			<AppHeader />
 			<main className={styles.page}>
-				<BurgerIngredients />
-				<BurgerConstructor />
+				<BurgerIngredients ingredientsData={ingredientsData} />
+				<BurgerConstructor ingredientsData={ingredientsData} />
 			</main>
 		</>
 	);

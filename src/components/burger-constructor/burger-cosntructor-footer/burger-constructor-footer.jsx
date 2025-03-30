@@ -7,10 +7,10 @@ import {
 import styles from './burger-constructor-footer.module.scss';
 
 export const BurgerConstructorFooter = ({ sum }) => {
-	const [visible, setVisible] = useState(false);
-	const toggleModal = () => {
-		setVisible(!visible);
-	};
+	// const [visible, setVisible] = useState(false);
+	// const toggleModal = () => {
+	// 	setVisible(!visible);
+	// };
 	// const modal = (
 	// 	<Modal
 	// 		header='Внимание!'
@@ -30,10 +30,11 @@ export const BurgerConstructorFooter = ({ sum }) => {
 				type='primary'
 				size='small'
 				extraClass='ml-2'
-				onClick={() => toggleModal()}>
+				// onClick={() => toggleModal()}
+			>
 				Оформить заказ
 			</Button>
-			{visible && modal}
+			{/* {visible && modal} */}
 		</div>
 	);
 };

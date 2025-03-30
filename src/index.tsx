@@ -1,7 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './components/app/app';
-// import { Modal } from './components/modal/modal';
 import './styles.css';
 
 const domNode = document.getElementById('root') as HTMLDivElement;

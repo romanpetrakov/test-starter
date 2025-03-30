@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './burger-constructor.module.scss';
-import { ingredientsData } from '../utils/ingredients-data';
 import { BurgerConstructorItem } from './burger-constructor-item/burger-constructor-item';
 import { BurgerConstructorFooter } from './burger-cosntructor-footer/burger-constructor-footer';
+import { ingredientTypes } from '../utils/ingredient-types';
+import { arrayOf } from 'prop-types';
 
 //const selectedBun = '60666c42cc7b410027a1a9b1';
 const selectedBun = '60666c42cc7b410027a1a9b2';
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor = ({ ingredientsData }) => {
 	const bun = ingredientsData.find((element) => element._id === selectedBun);
 	const sum = 500;
 	return (
@@ -30,4 +31,8 @@ export const BurgerConstructor = () => {
 			<BurgerConstructorFooter sum={sum} />
 		</section>
 	);
+};
+
+BurgerConstructor.propTypes = {
+	ingredientsData: arrayOf(ingredientTypes).isRequired,
 };

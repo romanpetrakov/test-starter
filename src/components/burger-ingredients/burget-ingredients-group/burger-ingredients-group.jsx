@@ -1,8 +1,7 @@
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
-import { ingredientsData } from '../../utils/ingredients-data';
 import syles from './burger-ingredients-group.module.scss';
 
-export const BurgerIngredientsGroup = ({ groupItem }) => {
+export const BurgerIngredientsGroup = ({ groupItem, ingredientsData }) => {
 	return (
 		<div className={syles.group}>
 			<p className='text text_type_main-medium pb-6'>{groupItem.title}</p>
