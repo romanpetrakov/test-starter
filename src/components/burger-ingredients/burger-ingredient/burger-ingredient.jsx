@@ -3,11 +3,19 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { func } from 'prop-types';
 import styles from './burger-ingredient.module.scss';
+import { ingredientTypes } from '../../utils/ingredient-types';
 
-export const BurgerIngredient = ({ item }) => {
+export const BurgerIngredient = ({ item, openModal }) => {
+	const handleClick = () => {
+		openModal(item);
+	};
 	return (
-		<div className={styles.ingredient + ' ml-4'}>
+		<div
+			className={styles.ingredient + ' ml-4 mb-6 mr-2'}
+			onClick={handleClick}
+			aria-hidden='true'>
 			<picture>
 				<source srcSet={item.image} type='image/svg+xml' />
 				<img src={item.image} alt={item.name} />
@@ -22,4 +30,9 @@ export const BurgerIngredient = ({ item }) => {
 			<Counter count={1} size='default' extraClass='m-1' />
 		</div>
 	);
+};
+
+BurgerIngredient.propTypes = {
+	item: ingredientTypes.isRequired,
+	openModal: func.isRequired,
 };

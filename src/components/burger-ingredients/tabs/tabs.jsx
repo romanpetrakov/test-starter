@@ -6,7 +6,7 @@ export const Tabs = () => {
 	const [current, setCurrent] = useState('one');
 
 	return (
-		<div className={styles.tabs + ' pb-10'}>
+		<div className={styles.tabs + ' mb-10'}>
 			{ingredientGroupsData.map((item, key) => (
 				<Tab
 					key={key}
