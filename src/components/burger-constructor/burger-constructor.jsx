@@ -13,11 +13,13 @@ export const BurgerConstructor = ({ ingredientsData, openModal }) => {
 	const bun = ingredientsData.find((element) => element._id === selectedBun);
 	const sum = 500;
 	return (
-		<section className={styles.constructor + ' mt-25 ml-10 mr-4'}>
-			<ul className={styles.list}>
-				<BurgerConstructorItem item={bun} type='top' />
-			</ul>
-			<div className={styles.ingredientsList}>
+		<section className={styles.constructor + ' mt-25 ml-10'}>
+			<div className=' mr-4'>
+				<ul className={styles.list}>
+					<BurgerConstructorItem item={bun} type='top' />
+				</ul>
+			</div>
+			<div className={styles.ingredientsList + ' mr-4'}>
 				<ul className={styles.list}>
 					{ingredientsData
 						.filter((item) => item.type !== 'bun')
@@ -26,9 +28,11 @@ export const BurgerConstructor = ({ ingredientsData, openModal }) => {
 						})}
 				</ul>
 			</div>
-			<ul className={styles.list + ' mb-6'}>
-				<BurgerConstructorItem item={bun} type='bottom' />
-			</ul>
+			<div className=' mr-4'>
+				<ul className={styles.list + ' mr-4'}>
+					<BurgerConstructorItem item={bun} type='bottom' />
+				</ul>
+			</div>
 			<BurgerConstructorFooter sum={sum} openModal={openModal} />
 		</section>
 	);

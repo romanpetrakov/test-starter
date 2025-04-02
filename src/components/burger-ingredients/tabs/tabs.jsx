@@ -7,9 +7,9 @@ export const Tabs = () => {
 
 	return (
 		<div className={styles.tabs + ' mb-10'}>
-			{ingredientGroupsData.map((item, key) => (
+			{ingredientGroupsData.map((item) => (
 				<Tab
-					key={key}
+					key={item.id}
 					value={item.value}
 					active={current === item.value}
 					onClick={setCurrent}>

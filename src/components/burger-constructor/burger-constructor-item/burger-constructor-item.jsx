@@ -5,7 +5,7 @@ import { string } from 'prop-types';
 export const BurgerConstructorItem = ({ item, type }) => {
 	if (item.type !== 'bun') {
 		return (
-			<li className={style.item + ' mb-4 ml-8 mr-4'}>
+			<li className={style.item + ' mb-4 ml-8'}>
 				<ConstructorElement
 					text={item.name}
 					price={item.price}
@@ -16,7 +16,7 @@ export const BurgerConstructorItem = ({ item, type }) => {
 		);
 	}
 	return (
-		<li className={style.item + ' mb-4 ml-8'}>
+		<li className={style.item + (type == 'top' ? ' mb-4' : '') + ' ml-8'}>
 			<ConstructorElement
 				type={item.type === 'bun' && type}
 				isLocked={item.type === 'bun'}

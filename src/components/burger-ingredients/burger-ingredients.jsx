@@ -12,9 +12,9 @@ export const BurgerIngredients = ({ ingredientsData, openModal }) => {
 			<p className={'mt-10 mb-5 text text_type_main-large'}>Соберите бургер</p>
 			<Tabs />
 			<div className={styles.groups}>
-				{ingredientGroupsData.map((item, key) => (
+				{ingredientGroupsData.map((item) => (
 					<BurgerIngredientsGroup
-						key={key}
+						key={item.id}
 						groupItem={item}
 						ingredientsData={ingredientsData}
 						openModal={openModal}

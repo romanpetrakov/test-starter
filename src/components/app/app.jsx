@@ -25,7 +25,12 @@ export const App = () => {
 	useEffect((state) => {
 		setState({ ...state, hasError: false, isLoading: true });
 		fetch(url)
-			.then((res) => res.json())
+			.then((res) => {
+				if (res.ok) {
+					return res.json();
+				}
+				return Promise.reject(`Ошибка ${res.status}`);
+			})
 			.then((data) =>
 				setState({ ...state, ingredientsData: data.data, isLoading: false })
 			)
