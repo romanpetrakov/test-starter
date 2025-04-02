@@ -28,7 +28,7 @@ export const AppHeader = () => {
 					<a
 						className={styles.link + ' ' + styles.linkRight + ' p-5'}
 						href='./'>
-						<ProfileIcon type='primary' className=' mr-2' />
+						<ProfileIcon type='secondary' className=' mr-2' />
 						<span className='text text_type_main-default text_color_inactive'>
 							Личный кабинет
 						</span>
