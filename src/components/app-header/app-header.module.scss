@@ -1,0 +1,42 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 auto;
+	position: top;
+
+	width: 2000px;
+	background: #1d1c21;
+}
+
+.headerContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 1280px;
+	margin: 0 auto;
+}
+
+.nav {
+	display: flex;
+	min-width: 380px;
+}
+
+.navRight {
+	display: flex;
+	justify-content: flex-end;
+	min-width: 380px;
+}
+
+.link {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	color: #8585ad;
+}
+
+.linkActive {
+	display: flex;
+	align-items: center;
+	color: #ffffff;
+}

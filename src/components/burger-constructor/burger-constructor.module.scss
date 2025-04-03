@@ -1,0 +1,21 @@
+.constructor {
+	flex-direction: column;
+	float: right;
+	display: flex;
+	justify-content: center;
+	padding-inline-start: 0px;
+}
+.list {
+	margin-block-start: 0px;
+	margin: 0;
+	padding-inline-start: 0px;
+	display: flex;
+	flex-direction: column;
+}
+.ingredientsList {
+	display: flex;
+	flex-direction: column;
+	height: 400px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
