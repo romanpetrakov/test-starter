@@ -1,4 +1,50 @@
 .item {
-	padding-inline-start: 0;
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 536px;
+	min-width: 536px;
 	list-style: none;
+}
+
+.droppable {
+	display: flex;
+	flex-direction: column;
+}
+
+.dragImg {
+	position: absolute;
+	left: -22px;
+}
+
+.addIngredients {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 536px;
+	min-height: 80px;
+	font-weight: 500;
+	background: rgb(47 47 55);
+	border-radius: 40px;
+	cursor: pointer;
+}
+
+.bunItem {
+	position: relative;
+	width: 536px;
+	list-style: none;
+}
+
+.addBunFirst {
+	border-top-left-radius: 88px;
+	border-top-right-radius: 88px;
+}
+
+.addBunLast {
+	border-bottom-right-radius: 88px;
+	border-bottom-left-radius: 88px;
+}
+
+.constructorElement {
+	width: 535px;
 }

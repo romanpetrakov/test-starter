@@ -3,9 +3,48 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor-footer.module.scss';
-import { func, number } from 'prop-types';
+import { useMemo, useState } from 'react';
+import { Modal } from '../../modal/modal';
+import { Order } from '../../app/order-detail/order';
+import { useSelector, useDispatch } from 'react-redux';
+import { setOrder } from '../../../services/order/action';
 
-export const BurgerConstructorFooter = ({ sum, openModal }) => {
+export const BurgerConstructorFooter = () => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const { ingredients, bun } = useSelector(
+		(state) => state.selectedIngredients
+	);
+	const dispatch = useDispatch();
+
+	const closeModal = () => {
+		setIsModalVisible(false);
+	};
+
+	const openModal = () => {
+		setIsModalVisible(true);
+	};
+
+	const handleClick = () => {
+		if (bun && ingredients.length) {
+			const ingredientsIds = ingredients.map((elem) => elem._id);
+			ingredientsIds.unshift(bun._id);
+			ingredientsIds.push(bun._id);
+			const requestData = JSON.stringify({ ingredients: ingredientsIds });
+			dispatch(setOrder(requestData));
+
+			openModal();
+		}
+	};
+
+	const sum = useMemo(() => {
+		const bunPrice = bun ? bun.price : 0;
+		const ingredientsPrice =
+			ingredients.length > 0
+				? ingredients.reduce((sum, elem) => (sum += elem.price), 0)
+				: 0;
+		return bunPrice * 2 + ingredientsPrice;
+	}, [bun, ingredients]);
+
 	return (
 		<div className={styles.footer + ' mt-10 mr-4 pr-4'}>
 			<p>
@@ -17,14 +56,14 @@ export const BurgerConstructorFooter = ({ sum, openModal }) => {
 				type='primary'
 				size='medium'
 				extraClass='ml-10'
-				onClick={openModal}>
+				onClick={handleClick}>
 				Оформить заказ
 			</Button>
+			{isModalVisible && (
+				<Modal closeModal={closeModal} title='Детали ингредиента'>
+					<Order />
+				</Modal>
+			)}
 		</div>
 	);
-};
-
-BurgerConstructorFooter.propTypes = {
-	sum: number.isRequired,
-	openModal: func.isRequired,
 };
