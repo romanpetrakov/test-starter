@@ -1,8 +1,9 @@
 import styles from './ingredient-detail.module.scss';
 
-import { ingredientTypes } from '../../utils/ingredient-types';
+import { useSelector } from 'react-redux';
 
-export const IngredientDetail = ({ ingredient }) => {
+export const IngredientDetail = () => {
+	const ingredient = useSelector((store) => store.ingredient.ingredient);
 	return (
 		<div className={styles.ingredient}>
 			<img
@@ -41,8 +42,4 @@ export const IngredientDetail = ({ ingredient }) => {
 			</ul>
 		</div>
 	);
-};
-
-IngredientDetail.propTypes = {
-	ingredient: ingredientTypes.isRequired,
 };
