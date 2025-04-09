@@ -45,7 +45,7 @@ export const BurgerConstructor = () => {
 			...ingredient,
 			uniqueId: uuidv4(),
 		};
-		console.log(item);
+
 		if (ingredient.type === 'bun') {
 			dispatch(setBun(item));
 		} else {

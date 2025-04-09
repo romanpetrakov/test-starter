@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './ingredients.module.scss';
 import { ingredientGroupsData } from '../../utils/ingredient-groups-data';
 import { BurgerIngredientsGroup } from '../burget-ingredients-group/burger-ingredients-group';
-
+import { func } from 'prop-types';
 export const Ingredients = ({ setCurrentTab }) => {
 	const ingredients = useSelector((state) => state.ingredients.ingredients);
 	const containerRef = useRef(null);
@@ -77,5 +77,5 @@ export const Ingredients = ({ setCurrentTab }) => {
 };
 
 Ingredients.propTypes = {
-	setCurrentTab: func.isRequired
+	setCurrentTab: func.isRequired,
 };
