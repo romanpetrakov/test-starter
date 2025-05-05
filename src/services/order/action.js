@@ -1,3 +1,4 @@
+import { API_ORDERS } from '../../components/utils/endpoints';
 import { request } from '../../components/utils/request';
 
 export const SET_ORDER = 'SET_ORDER';
@@ -10,7 +11,6 @@ export function setOrder(productsIds) {
 		dispatch({
 			type: SET_ORDER,
 		});
-		const path = 'api/orders';
 		const options = {
 			method: 'POST',
 			body: productsIds,
@@ -18,7 +18,7 @@ export function setOrder(productsIds) {
 				'Content-Type': 'application/json;charset=utf-8',
 			},
 		};
-		request(path, options)
+		request(API_ORDERS, options)
 			.then((res) => {
 				if (res && res.success) {
 					dispatch({

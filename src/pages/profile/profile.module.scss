@@ -1,0 +1,31 @@
+.container {
+	display: flex;
+	flex-direction: row;
+	float: left;
+	justify-content: flex-start;
+	margin-right: 350px;
+}
+
+.menu {
+	width: 320px;
+}
+.links {
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+.list {
+	margin-top: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+
+	padding: 18px 0;
+
+	font-size: 24px;
+}

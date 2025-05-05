@@ -1,0 +1,12 @@
+.group {
+	//	display: grid;
+	//	grid-template-columns: repeat(2, 1fr);
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.items {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}

@@ -1,3 +1,4 @@
+import { API_GET_INGREDIENTS } from '../../components/utils/endpoints';
 import { request } from '../../components/utils/request';
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
@@ -9,7 +10,6 @@ export function getIngredients() {
 		dispatch({
 			type: GET_INGREDIENTS,
 		});
-		const path = 'api/ingredients/';
 		const options = {
 			method: 'GET',
 			headers: {
@@ -17,7 +17,7 @@ export function getIngredients() {
 			},
 		};
 
-		request(path, options)
+		request(API_GET_INGREDIENTS, options)
 			.then((res) => {
 				dispatch({
 					type: GET_INGREDIENTS_SUCCESS,

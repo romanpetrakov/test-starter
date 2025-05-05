@@ -20,12 +20,6 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
 			};
 		}
 		case REMOVE_ITEM: {
-			console.log(action.ingredient);
-			console.log([
-				...state?.ingredients?.filter(
-					(elem) => elem.uniqueId !== action.ingredient
-				),
-			]);
 			return {
 				...state,
 				ingredients: [
