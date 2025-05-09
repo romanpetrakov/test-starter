@@ -1,6 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientGroupsData } from '../../utils/ingredient-groups-data';
 import styles from './tabs.module.scss';
+import { func, string } from 'prop-types';
 
 export const Tabs = ({ currentTab, setCurrentTab }) => {
 	return (
@@ -17,4 +18,9 @@ export const Tabs = ({ currentTab, setCurrentTab }) => {
 				))}
 		</div>
 	);
+};
+
+Tabs.propTypes = {
+	currentTab: string.isRequired,
+	setCurrentTab: func.isRequired,
 };

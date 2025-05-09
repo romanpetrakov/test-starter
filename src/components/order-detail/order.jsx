@@ -1,5 +1,5 @@
 import styles from './order.module.scss';
-import image from '../../../img/order.svg';
+import image from '../../img/order.svg';
 import { useSelector } from 'react-redux';
 export const Order = () => {
 	const { order, requestInProgress, sendOrderFailed } = useSelector(

@@ -2,7 +2,7 @@ import {
 	ConstructorElement,
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './burger-constructor-item.module.css';
+import style from './burger-constructor-item.module.scss';
 import { ingredientTypes } from '../../utils/ingredient-types';
 import { func, number, string } from 'prop-types';
 import { useRef } from 'react';
@@ -53,7 +53,6 @@ export const BurgerConstructorItem = ({
 				return;
 			}
 
-			// Time to actually perform the action
 			moveIngredient(dragIndex, hoverIndex);
 
 			item.indexInArray = hoverIndex;

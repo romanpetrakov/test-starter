@@ -18,7 +18,7 @@ export const BurgerConstructor = () => {
 	const { bun, ingredients } = useSelector(
 		(state) => state.selectedIngredients
 	);
-	// const { order } = useSelector((state) => state.order);
+
 	const ref = useRef(null);
 
 	const moveIngredient = (dragIndex, hoverIndex) => {
@@ -26,7 +26,7 @@ export const BurgerConstructor = () => {
 		const movedItem = ingredients[dragIndex];
 		newIngredients.splice(dragIndex, 1);
 		newIngredients.splice(hoverIndex, 0, movedItem);
-		console.log(newIngredients);
+
 		dispatch(changeOrder(newIngredients));
 	};
 

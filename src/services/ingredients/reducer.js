@@ -8,7 +8,7 @@ const initialState = {
 	ingredientsFetching: false,
 	ingredientsSuccessFetching: false,
 	ingredientsFailedFetching: false,
-	ingredient: [],
+	ingredients: [],
 };
 
 export const ingredientsReducer = (state = initialState, action) => {

@@ -5,19 +5,16 @@ import {
 
 import styles from './burger-ingredient.module.scss';
 import { ingredientTypes } from '../../utils/ingredient-types';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	setIngredient,
-	removeIngredient,
-} from '../../../services/ingredient/action';
-import { Modal } from '../../modal/modal';
-import { IngredientDetail } from '../ingredient-detail/ingredient-detail';
+import { setIngredient } from '../../../services/ingredient/action';
+
 import { useDrag } from 'react-dnd';
+import { Link, useLocation } from 'react-router-dom';
 
 export const BurgerIngredient = ({ ingredient }) => {
 	const dispatch = useDispatch();
-	const [isModalVisible, setIsModalVisible] = useState(false);
+	const location = useLocation();
 
 	const { bun, ingredients } = useSelector(
 		(state) => state.selectedIngredients
@@ -28,19 +25,13 @@ export const BurgerIngredient = ({ ingredient }) => {
 		item: { ...ingredient },
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
-			//            handlerId: monitor.getHandlerId(),
 		}),
 	}));
 
 	const opacity = isDragging ? 0.4 : 1;
 
-	const closeModal = () => {
-		dispatch(removeIngredient());
-		setIsModalVisible(false);
-	};
 	const openModal = () => {
 		dispatch(setIngredient(ingredient));
-		setIsModalVisible(true);
 	};
 
 	const countIngredient = useMemo(() => {
@@ -53,7 +44,10 @@ export const BurgerIngredient = ({ ingredient }) => {
 
 	return (
 		!isDragging && (
-			<>
+			<Link
+				key={ingredient._id}
+				to={'/ingredients/' + ingredient._id}
+				state={{ backgroundLocation: location }}>
 				<div
 					className={styles.ingredient + ' ml-4 mb-6 mr-2'}
 					onClick={openModal}
@@ -73,12 +67,7 @@ export const BurgerIngredient = ({ ingredient }) => {
 					</span>
 					<Counter count={countIngredient} size='default' extraClass='m-1' />
 				</div>
-				{isModalVisible && (
-					<Modal header='Детали ингредиента' closeModal={closeModal}>
-						<IngredientDetail />
-					</Modal>
-				)}
-			</>
+			</Link>
 		)
 	);
 };

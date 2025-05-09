@@ -4,6 +4,7 @@ import styles from './ingredients.module.scss';
 import { ingredientGroupsData } from '../../utils/ingredient-groups-data';
 import { BurgerIngredientsGroup } from '../burget-ingredients-group/burger-ingredients-group';
 import { func } from 'prop-types';
+
 export const Ingredients = ({ setCurrentTab }) => {
 	const ingredients = useSelector((state) => state.ingredients.ingredients);
 	const containerRef = useRef(null);

@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styles from './app-header.module.scss';
 
 import {
@@ -12,27 +13,72 @@ export const AppHeader = () => {
 		<header className={styles.header + ' mr-4'}>
 			<div className={styles.headerContainer}>
 				<nav className={styles.nav + ' mt-4 mb-4'}>
-					<a className={styles.linkActive + ' mr-2 p-5'} href='./'>
-						<BurgerIcon type='primary' className=' mr-2' />
-						<span className='text text_type_main-default'>Конструктор</span>
-					</a>
-					<a className={styles.link + ' ' + styles.linkLeft + ' p-5'} href='./'>
-						<ListIcon type='secondary' className=' mr-2' />
-						<span className='text text_type_main-default text_color_inactive'>
-							Лента заказов
-						</span>
-					</a>
+					<NavLink to='/' className={' p-5'}>
+						{({ isActive }) => (
+							<div
+								className={
+									(isActive ? styles.linkActive : styles.link) + ' mr-2 p-5'
+								}
+								href='./'>
+								<BurgerIcon
+									type={isActive ? 'primary' : 'secondary'}
+									className='mr-2'
+								/>
+								<span
+									className={
+										'text text_type_main-default ' +
+										(isActive ? '' : 'text_color_inactive')
+									}>
+									Конструктор
+								</span>
+							</div>
+						)}
+					</NavLink>
+					<NavLink to='/orders' className={' p-5'}>
+						{({ isActive }) => (
+							<div
+								className={
+									(isActive ? styles.linkActive : styles.link) + ' mr-2 p-5'
+								}
+								href='./'>
+								<ListIcon
+									type={isActive ? 'primary' : 'secondary'}
+									className='mr-2'
+								/>
+								<span
+									className={
+										'text text_type_main-default ' +
+										(isActive ? '' : 'text_color_inactive')
+									}>
+									Лента заказов
+								</span>
+							</div>
+						)}
+					</NavLink>
 				</nav>
 				<Logo />
 				<nav className={styles.navRight + ' mt-4 mb-4'}>
-					<a
-						className={styles.link + ' ' + styles.linkRight + ' p-5'}
-						href='./'>
-						<ProfileIcon type='secondary' className=' mr-2' />
-						<span className='text text_type_main-default text_color_inactive'>
-							Личный кабинет
-						</span>
-					</a>
+					<NavLink to='/profile' className={styles.linkRight + ' p-5'}>
+						{({ isActive }) => (
+							<div
+								className={
+									(isActive ? styles.linkActive : styles.link) + ' mr-2 p-5'
+								}
+								href='./'>
+								<ProfileIcon
+									type={isActive ? 'primary' : 'secondary'}
+									className='mr-2'
+								/>
+								<span
+									className={
+										'text text_type_main-default ' +
+										(isActive ? '' : 'text_color_inactive')
+									}>
+									Личный кабинет
+								</span>
+							</div>
+						)}
+					</NavLink>
 				</nav>
 			</div>
 		</header>

@@ -5,17 +5,19 @@ import {
 import styles from './burger-constructor-footer.module.scss';
 import { useMemo, useState } from 'react';
 import { Modal } from '../../modal/modal';
-import { Order } from '../../app/order-detail/order';
+import { Order } from '../../order-detail/order';
 import { useSelector, useDispatch } from 'react-redux';
 import { setOrder } from '../../../services/order/action';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructorFooter = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const { ingredients, bun } = useSelector(
 		(state) => state.selectedIngredients
 	);
+	const user = useSelector((store) => store.auth.user);
 	const dispatch = useDispatch();
-
+	const navigate = useNavigate();
 	const closeModal = () => {
 		setIsModalVisible(false);
 	};
@@ -25,6 +27,14 @@ export const BurgerConstructorFooter = () => {
 	};
 
 	const handleClick = () => {
+		if (!user) {
+			return navigate('/login');
+		}
+		if (!bun) {
+			alert('Нужно выбрать булку');
+		} else if (bun && ingredients.length < 1) {
+			alert('Нужно выбрать начинку');
+		}
 		if (bun && ingredients.length) {
 			const ingredientsIds = ingredients.map((elem) => elem._id);
 			ingredientsIds.unshift(bun._id);

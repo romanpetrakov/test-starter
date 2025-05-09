@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import styles from './modal.module.scss';
 import { ModalOverlay } from './modal-overlay/modal-overlay';
 import { ModalHeader } from './modal-header/modal-header';
-import { func, string } from 'prop-types';
+import { element, func, string } from 'prop-types';
 import { useEffect } from 'react';
 
 const modalRoot = document.getElementById('react-modal');
@@ -37,4 +37,5 @@ export const Modal = ({ header, children, closeModal }) => {
 Modal.propTypes = {
 	closeModal: func.isRequired,
 	header: string,
+	children: element,
 };
