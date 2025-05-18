@@ -1,4 +1,4 @@
-//import { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './components/app/app';
 import './styles.css';
@@ -9,11 +9,11 @@ import { BrowserRouter } from 'react-router-dom';
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 root.render(
-	//	<StrictMode>
-	<BrowserRouter>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</BrowserRouter>
-	//	</StrictMode>
+	<StrictMode>
+		<BrowserRouter>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</BrowserRouter>
+	</StrictMode>
 );
