@@ -45,6 +45,7 @@ export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOGIN: {
 			return {
+				...state,
 				isLoading: true,
 				isLoadedLogin: false,
 				loginError: null,
@@ -52,6 +53,8 @@ export const authReducer = (state = initialState, action) => {
 		}
 		case LOGIN_SUCCESS: {
 			return {
+				...state,
+
 				user: { ...state.user, ...action.user },
 				isLoading: false,
 				isLoadedLogin: true,

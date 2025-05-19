@@ -2,6 +2,7 @@ import {
 	API_LOGIN,
 	API_LOGOUT,
 	API_PASSWORD_RESET,
+	API_PASSWORD_RESET_CONFIRM,
 	API_REGISTER,
 	API_USER_INFO,
 } from '../../components/utils/endpoints';
@@ -178,7 +179,7 @@ export function resetPassword(form) {
 			token: form.token,
 		};
 
-		fetchWithRefresh('/api/password-reset/reset', {
+		request(API_PASSWORD_RESET_CONFIRM, {
 			method: 'POST',
 			body: JSON.stringify(requestData),
 			headers: {
