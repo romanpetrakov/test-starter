@@ -14,7 +14,7 @@ import { TIngredient } from '../../utils/types';
 export const BurgerConstructorFooter: FC = () => {
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	const { ingredients, bun } = useAppSelector(
-		(state) => state.selectedIngredients
+		(store) => store.selectedIngredients
 	);
 	const user = useAppSelector((store) => store.auth.user);
 	const dispatch = useAppDispatch();
@@ -33,17 +33,23 @@ export const BurgerConstructorFooter: FC = () => {
 		}
 		if (!bun) {
 			alert('Нужно выбрать булку');
-		} else if (bun && ingredients.length < 1) {
+			return;
+		}
+		if (ingredients.length < 1) {
 			alert('Нужно выбрать начинку');
+			return;
 		}
-		if (bun && ingredients.length) {
-			const ingredientsIds = ingredients.map((elem: TIngredient) => elem._id);
-			ingredientsIds.unshift(bun._id);
-			ingredientsIds.push(bun._id);
-			const requestData = JSON.stringify({ ingredients: ingredientsIds });
-			dispatch(setOrder(requestData));
-			openModal();
-		}
+
+		const ingredientsIds = ingredients.map((elem: TIngredient) => elem._id);
+		ingredientsIds.unshift(bun._id); // Добавляем булку в начало
+		ingredientsIds.push(bun._id); // Добавляем булку в конец
+
+		dispatch(setOrder(ingredientsIds)); // Теперь передаётся string[]
+		openModal();
+		// const requestData = JSON.stringify({ ingredients: ingredientsIds });
+		// dispatch(setOrder(requestData));
+		// openModal();
+		//}
 	};
 
 	const sum = useMemo<number>(() => {

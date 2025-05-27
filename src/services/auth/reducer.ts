@@ -1,3 +1,4 @@
+import { TUser } from '../../components/utils/types';
 import {
 	LOGIN,
 	LOGIN_FAILED,
@@ -20,8 +21,27 @@ import {
 	SET_USER,
 	SET_USER_SUCCESS,
 	SET_USER_FAILED,
+	TAuthActions,
 } from './action';
 
+type TAuthState = {
+	user: TUser | null;
+	isLoading: boolean;
+	isLoadedLogin: boolean;
+	isLoadedLogout: boolean;
+	isLoadedForgot: boolean;
+	isLoadedReset: boolean;
+	isLoadedRegister: boolean;
+	isLoadedUser: boolean;
+	isSettedUser: boolean;
+	loginError: string | null;
+	logoutError: string | null;
+	forgotError: string | null;
+	resetError: string | null;
+	registerError: string | null;
+	setUserError: string | null;
+	getUserError: string | null;
+};
 const initialState = {
 	user: null,
 	isLoading: false,
@@ -41,7 +61,10 @@ const initialState = {
 	getUserError: null,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (
+	state: TAuthState = initialState,
+	action: TAuthActions
+) => {
 	switch (action.type) {
 		case LOGIN: {
 			return {
@@ -91,7 +114,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				isLoadedLogout: false,
-				logoutError: action.error,
+				logoutError: action.logoutError,
 			};
 		}
 		case FORGOT: {
@@ -114,10 +137,9 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				isLoadedForgot: false,
-				forgotError: action.error,
+				forgotError: action.forgotError,
 			};
 		}
-
 		case RESET: {
 			return {
 				...state,
@@ -138,10 +160,9 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				isLoadedReset: false,
-				resetError: action.error,
+				resetError: action.resetError,
 			};
 		}
-
 		case REGISTER: {
 			return {
 				...state,

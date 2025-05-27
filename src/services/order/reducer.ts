@@ -3,15 +3,29 @@ import {
 	SET_ORDER_FAILED,
 	SET_ORDER_SUCCESS,
 	CLEAR_ORDER,
+	TOrderActions,
 } from './action';
 
-const initialState = {
+const initialState: TOrderState = {
 	order: null,
 	requestInProgress: false,
 	sendOrderFailed: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+type TOrder = {
+	number: number;
+};
+
+type TOrderState = {
+	order: TOrder | null;
+	requestInProgress: boolean;
+	sendOrderFailed: boolean;
+};
+
+export const orderReducer = (
+	state: TOrderState = initialState,
+	action: TOrderActions
+): TOrderState => {
 	switch (action.type) {
 		case SET_ORDER: {
 			return {

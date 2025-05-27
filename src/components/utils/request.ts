@@ -17,7 +17,7 @@ type TErrorResponse = {
 };
 
 // Типы для функции request
-type TRequestOptions = {
+export type TRequestOptions = {
 	method?: string;
 	headers?: Record<string, string>;
 	body?: string;

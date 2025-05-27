@@ -1,4 +1,11 @@
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+	Location,
+	NavigateFunction,
+	Route,
+	Routes,
+	useLocation,
+	useNavigate,
+} from 'react-router-dom';
 import { MainPage } from '../../pages/main/main';
 import { LoginPage } from '../../pages/login/login';
 import { ProtectedRoute } from '../route/protected-route';
@@ -20,11 +27,17 @@ import { getIngredients } from '../../services/ingredients/action';
 import { useAppDispatch } from '../../hooks/hooks';
 import { ProfilePage } from '../../pages/profile/profile';
 
+interface ILocationState {
+	backgroundLocation?: Location;
+}
+
 export const App = () => {
 	const location = useLocation();
-	const navigate = useNavigate();
+	const navigate: NavigateFunction = useNavigate();
 	const dispatch = useAppDispatch();
-	const backgroundLocation = location?.state?.backgroundLocation;
+	const backgroundLocation = (location.state as ILocationState)
+		?.backgroundLocation;
+
 	useEffect(() => {
 		dispatch(getIngredients());
 	}, [dispatch]);

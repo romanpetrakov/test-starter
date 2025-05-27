@@ -16,7 +16,7 @@ export const ProtectedRoute: FC<{
 	const { user, isLoading } = useAppSelector((store) => store.auth);
 
 	const location = useLocation();
-	const from = location.state?.from || '/';
+	const from: string = location.state?.from || '/';
 
 	if (isLoading) {
 		return <div>загрузка</div>;
