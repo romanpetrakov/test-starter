@@ -1,3 +1,4 @@
+import { getFromStorage } from '../../components/utils/storage';
 import { TOrders } from '../../components/utils/types';
 
 export const WS_CONNECTION_START = 'WS_CONNECTION_START' as const;
@@ -11,9 +12,11 @@ export const WS_SEND_MESSAGE = 'WS_SEND_MESSAGE' as const;
 
 export interface IWsConnectionStartAction {
 	readonly type: typeof WS_CONNECTION_START;
+	readonly payload: string;
 }
 export interface IWsConnectionStartForUserAction {
-	readonly type: typeof WS_CONNECTION_START_FOR_USER;
+	readonly type: typeof WS_CONNECTION_START;
+	readonly payload: string;
 }
 export interface IWsConnectionSuccessAction {
 	readonly type: typeof WS_CONNECTION_SUCCESS;
@@ -40,13 +43,16 @@ export type TWsFeedAction =
 //   | IWsGetUserOrderAction;
 
 export const wsConnectionStartForUser = (): TWsFeedAction => {
+	const token = getFromStorage('accessToken', '')?.replace('Bearer ', '');
 	return {
-		type: WS_CONNECTION_START_FOR_USER,
+		type: WS_CONNECTION_START,
+		payload: `/orders?token=${token}`,
 	};
 };
 export const wsConnectionStart = (): TWsFeedAction => {
 	return {
 		type: WS_CONNECTION_START,
+		payload: '/orders/all',
 	};
 };
 export const wsConnectionSuccess = (): TWsFeedAction => {

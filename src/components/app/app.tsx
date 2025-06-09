@@ -28,13 +28,16 @@ import { OrderInfo } from '../orders/order-info';
 import { OrdersPage } from '../../pages/profile/orders';
 import { OrderInfoPage } from '../../pages/order-info/order-info';
 import { removeFromStorage } from '../utils/storage';
+import { usePersistedModal } from '../../hooks/usePersistedModal';
 
 export const App = () => {
 	const location = useLocation();
 	const navigate: NavigateFunction = useNavigate();
 	const dispatch = useAppDispatch();
-	const backgroundLocation = location.state?.backgroundLocation;
-
+	const modalLocation = usePersistedModal();
+	const backgroundLocation =
+		location.state?.backgroundLocation ||
+		modalLocation?.state?.backgroundLocation;
 	const handleModalClose = () => {
 		dispatch(removeIngredient());
 		removeFromStorage('modalState');
@@ -102,12 +105,16 @@ export const App = () => {
 					/>
 					<Route
 						path='/profile/orders/:number'
-						element={
-							<Modal header='' closeModal={handleModalClose}>
-								<OrderInfo />
-							</Modal>
-						}
-					/>
+						element={<ProtectedRoute isNeedAuth={true} />}>
+						<Route
+							index
+							element={
+								<Modal header='' closeModal={handleModalClose}>
+									<OrderInfo />
+								</Modal>
+							}
+						/>
+					</Route>
 				</Routes>
 			)}
 		</>

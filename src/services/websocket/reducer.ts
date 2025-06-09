@@ -62,7 +62,6 @@ export const wsReducer = (
 			) {
 				return state;
 			}
-			console.log(action);
 			return {
 				...state,
 				total: action.payload.total,

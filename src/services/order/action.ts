@@ -115,7 +115,6 @@ export const getOrderInfo = (orderId: string) => {
 		dispatch<IGetOrderInfoAction>({ type: GET_ORDER_INFO });
 		const options: TRequestOptions = {
 			method: 'GET',
-			//	body: JSON.stringify({ ingredients: orderId }),
 			headers: {
 				'Content-Type': 'application/json;charset=utf-8',
 			},
