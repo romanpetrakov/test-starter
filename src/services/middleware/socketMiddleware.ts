@@ -33,112 +33,143 @@ export const wsActions: TWsActions = {
 	onMessage: WS_GET_MESSAGE,
 };
 
+interface WebSocketMessage {
+  success?: boolean;
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+}
 const baseUrl = 'wss://norma.nomoreparties.space';
 
 export const socketMiddleware = (wsActions: TWsActions): Middleware => {
-	return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
-		let socket: WebSocket | null = null;
-		let reconnectTimer = 0;
-		let lastData: {
-			total: number;
-			totalToday: number;
-			success?: boolean;
-			orders: TOrder[];
-		} | null = null;
-		let isConnected = false;
-		let connectionType:
-			| typeof WS_CONNECTION_START
-			| typeof WS_CONNECTION_START_FOR_USER
-			| null = null;
+  return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
+    let socket: WebSocket | null = null;
+    let reconnectTimer = 0;
+    let lastData: WebSocketMessage | null = null;
+    let isConnected = false;
+    let isConnecting = false; // Добавляем флаг подключения
+    let connectionType: typeof WS_CONNECTION_START | typeof WS_CONNECTION_START_FOR_USER | null = null;
 
-		return (next) => (action: UnknownAction) => {
-			const { dispatch } = store;
-			const { type, payload } = action;
-			const {
-				wsInit,
-				wsUserInit,
-				wsSendMessage,
-				onOpen,
-				onClose,
-				onError,
-				onMessage,
-			} = wsActions;
-			if (type === wsInit || type === wsUserInit) {
-				connectionType = type;
+    return (next) => (action: UnknownAction) => {
+      const { dispatch } = store;
+      const { type, payload } = action;
+      const {
+        wsInit,
+        wsUserInit,
+        wsSendMessage,
+        onOpen,
+        onClose,
+        onError,
+        onMessage,
+      } = wsActions;
 
-				const token = getFromStorage('accessToken', '')?.replace('Bearer ', '');
-				const wsUrl =
-					type === wsUserInit
-						? `${baseUrl}/orders?token=${token}`
-						: `${baseUrl}/orders/all`;
+      if (type === wsInit || type === wsUserInit) {
+        // Если уже идет подключение, не создаем новое
+        if (isConnecting || isConnected) return;
 
-				if (isConnected && socket) {
-					socket.close();
-				}
-				socket = new WebSocket(wsUrl);
-				isConnected = true;
-				console.log('WebSocket connecting to:', wsUrl);
-			}
-			if (socket) {
-				socket.onopen = () => {
-					dispatch({ type: onOpen, payload: { isConnected: true } });
-				};
-				socket.onerror = () => {
-					dispatch({ type: onError, payload: { error: 'WebSocket error' } });
-				};
+        connectionType = type;
+        isConnecting = true; // Устанавливаем флаг подключения
 
-				socket.onmessage = (event) => {
-					try {
-						const data = JSON.parse(event.data);
+        const token = getFromStorage('accessToken', '')?.replace('Bearer ', '');
+        const wsUrl = type === wsUserInit
+          ? `${baseUrl}/orders?token=${token}`
+          : `${baseUrl}/orders/all`;
 
-						if (data && JSON.stringify(data) !== JSON.stringify(lastData)) {
-							console.log('New WS data received:', data);
-							dispatch({
-								type: onMessage,
-								payload: {
-									orders: data.orders,
-									total: data.total,
-									totalToday: data.totalToday,
-								},
-							});
-							lastData = data; // Обновляем последние данные
-						}
-					} catch (err) {
-						console.error('Error parsing WebSocket message:', err, event.data);
-					}
-				};
-				socket.onclose = (event) => {
-					if (isConnected) {
-						// Проверяем флаг
-						dispatch({
-							type: onClose,
-							payload: {
-								code: event.code,
-								reason: event.reason,
-								wasClean: event.wasClean,
-							},
-						});
+        // Закрываем предыдущее соединение, если оно есть
+        if (socket) {
+          socket.close();
+        }
 
-						isConnected = false; // Сбрасываем флаг
-						reconnectTimer = window.setTimeout(() => {
-							if (connectionType) {
-								dispatch({ type: connectionType, payload });
-							}
-						}, 3000);
-					}
-				};
+        try {
+          socket = new WebSocket(wsUrl);
+          console.log('WebSocket connecting to:', wsUrl);
 
-				if (type === wsSendMessage && socket.readyState === WebSocket.OPEN) {
-					socket.send(JSON.stringify(action.payload));
-				}
-			}
-			if (type === onClose && socket) {
-				clearTimeout(reconnectTimer);
-				isConnected = false;
-				socket.close();
-				socket = null;
-			}
-			next(action);
-		};
-	}) as Middleware;
+          socket.onopen = () => {
+            isConnecting = false;
+            isConnected = true;
+            dispatch({ type: onOpen, payload: { isConnected: true } });
+          };
+
+          socket.onerror = (error) => {
+            isConnecting = false;
+            console.error('WebSocket error:', error);
+            dispatch({ type: onError, payload: { error: 'WebSocket error' } });
+          };
+
+          socket.onmessage = (event) => {
+            try {
+              const data = JSON.parse(event.data) as Partial<WebSocketMessage>;
+
+              if (data?.orders && data.total !== undefined && data.totalToday !== undefined) {
+                const message: WebSocketMessage = {
+                  orders: data.orders,
+                  total: data.total,
+                  totalToday: data.totalToday,
+                  success: data.success,
+                };
+
+                if (JSON.stringify(message) !== JSON.stringify(lastData)) {
+                  console.log('New WS data received:', message);
+                  dispatch({
+                    type: onMessage,
+                    payload: {
+                      orders: message.orders,
+                      total: message.total,
+                      totalToday: message.totalToday,
+                    },
+                  });
+                  lastData = message;
+                }
+              } else {
+                console.error('Invalid WebSocket message format:', data);
+              }
+            } catch (err) {
+              console.error('Error parsing WebSocket message:', err, event.data);
+            }
+          };
+
+          socket.onclose = (event) => {
+            isConnecting = false;
+            if (isConnected) {
+              dispatch({
+                type: onClose,
+                payload: {
+                  code: event.code,
+                  reason: event.reason,
+                  wasClean: event.wasClean,
+                },
+              });
+              isConnected = false;
+
+              // Пытаемся переподключиться только если соединение было установлено
+              reconnectTimer = window.setTimeout(() => {
+                if (connectionType) {
+                  dispatch({ type: connectionType, payload });
+                }
+              }, 3000);
+            }
+          };
+
+        } catch (error) {
+          isConnecting = false;
+          console.error('WebSocket creation error:', error);
+          dispatch({ type: onError, payload: { error: 'WebSocket creation error' } });
+        }
+      }
+
+      if (type === wsSendMessage && socket?.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify(action.payload));
+      }
+
+      if (type === onClose && socket) {
+        clearTimeout(reconnectTimer);
+        isConnecting = false;
+        isConnected = false;
+        socket.close();
+        socket = null;
+      }
+
+      next(action);
+    };
+  }) as Middleware;
 };
