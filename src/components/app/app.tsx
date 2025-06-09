@@ -1,5 +1,4 @@
 import {
-	Location,
 	NavigateFunction,
 	Route,
 	Routes,
@@ -15,8 +14,6 @@ import { RegisterPage } from '../../pages/register/register';
 import { ForgotPasswordPage } from '../../pages/forgot-password/forgot-password';
 import { ResetPasswordPage } from '../../pages/reset-password/reset-password';
 import { Profile } from '../profile/profile';
-import { Orders } from '../orders/orders';
-import { Order } from '../order-detail/order';
 import { IngredientDetailsPage } from '../../pages/ingredient-details/ingredient-details';
 import { NotFoundPage } from '../../pages/not-found/not-found';
 import { IngredientDetail } from '../burger-ingredients/ingredient-detail/ingredient-detail';
@@ -26,54 +23,97 @@ import { useEffect } from 'react';
 import { getIngredients } from '../../services/ingredients/action';
 import { useAppDispatch } from '../../hooks/hooks';
 import { ProfilePage } from '../../pages/profile/profile';
-
-interface ILocationState {
-	backgroundLocation?: Location;
-}
+import { FeedPage } from '../../pages/feed/feed';
+import { OrderInfo } from '../orders/order-info';
+import { OrdersPage } from '../../pages/profile/orders';
+import { OrderInfoPage } from '../../pages/order-info/order-info';
+import { removeFromStorage } from '../utils/storage';
 
 export const App = () => {
 	const location = useLocation();
 	const navigate: NavigateFunction = useNavigate();
 	const dispatch = useAppDispatch();
-	const backgroundLocation = (location.state as ILocationState)
-		?.backgroundLocation;
+	const backgroundLocation = location.state?.backgroundLocation;
 
+	const handleModalClose = () => {
+		dispatch(removeIngredient());
+		removeFromStorage('modalState');
+
+		// Просто возвращаемся назад
+		//  		navigate(-1);
+		navigate(backgroundLocation || -1);
+	};
+
+	//debugger;
 	useEffect(() => {
 		dispatch(getIngredients());
 	}, [dispatch]);
 
-	const handleModalClose = () => {
-		dispatch(removeIngredient());
-		navigate(-1);
-	};
+	useEffect(() => {
+		console.log('Location changed:', location);
+	}, [location]);
+
+	// const handleModalClose = () => {
+	// 	dispatch(removeIngredient());
+	// 	removeFromStorage('modalState');
+
+	// 	if (backgroundLocation) {
+	// 		// Явно переходим на backgroundLocation
+	// 		navigate(backgroundLocation.pathname, {
+	// 		state: { ...backgroundLocation.state },
+	// 		replace: true
+	// 		});
+	// 	} else {
+	// 		navigate(-1); // Fallback
+	// 	}
+	// };
+
+	// const handleModalClose = () => {
+	// 	console.log('handleModalClose');
+	// 	dispatch(removeIngredient());
+	// 	navigate(-1);
+	// };
+
+	// const handleModalClose2 = () => {
+	// 	console.log('handleModalClose2');
+	// 	removeFromStorage('modalState');
+	// 	navigate(-1);
+	// };
+	console.log('backgroundLocation', backgroundLocation);
+	console.log('location', location);
+
+	console.log(backgroundLocation || location);
+	console.log(backgroundLocation && 'qqqq');
 
 	return (
 		<>
 			<AppHeader />
 			<Routes location={backgroundLocation || location}>
+				{/* Общедоступные маршруты */}
 				<Route path='/' element={<MainPage />} />
 				<Route path='/ingredients/:id' element={<IngredientDetailsPage />} />
-
-				<Route
-					element={
-						<ProtectedRoute isNeedAuth={false} component={<Layout />} />
-					}>
-					<Route path='/login' element={<LoginPage />} />
-					<Route path='/register' element={<RegisterPage />} />
-					<Route path='/forgot-password' element={<ForgotPasswordPage />} />
-					<Route path='/reset-password' element={<ResetPasswordPage />} />
+				<Route path='feed' element={<FeedPage />} />
+				<Route path='feed/:number' element={<OrderInfoPage />} />
+				<Route element={<ProtectedRoute isNeedAuth={true} />}>
+					<Route path='profile/orders/:number' element={<OrderInfoPage />} />
 				</Route>
-				<Route
-					element={<ProtectedRoute isNeedAuth={true} component={<Layout />} />}>
-					<Route path='/orders' element={<Orders />} />
-					<Route
-						path='profile'
-						element={
-							<ProtectedRoute isNeedAuth={true} component={<ProfilePage />} />
-						}>
-						<Route index element={<Profile />} />
-						<Route path='orders' element={<Orders />} />
-						<Route path='orders/:id' element={<Order />} />
+
+				<Route element={<Layout />}>
+					{/* Незащищенные маршруты (только для неавторизованных) */}
+					<Route element={<ProtectedRoute isNeedAuth={false} />}>
+						<Route path='login' element={<LoginPage />} />
+						<Route path='register' element={<RegisterPage />} />
+						<Route path='forgot-password' element={<ForgotPasswordPage />} />
+						<Route path='reset-password' element={<ResetPasswordPage />} />
+					</Route>
+
+					{/* Защищенные маршруты (только для авторизованных) */}
+					<Route element={<ProtectedRoute isNeedAuth={true} />}>
+						<Route path='/profile' element={<ProfilePage />}>
+							<Route index element={<Profile />} />
+							<Route path='orders' element={<OrdersPage />} />
+						</Route>
+						<Route path='profile/orders/:number' element={<OrderInfoPage />} />
 					</Route>
 				</Route>
 				<Route path='*' element={<NotFoundPage />} />
@@ -83,11 +123,24 @@ export const App = () => {
 					<Route
 						path='/ingredients/:id'
 						element={
-							<Modal
-								//		isActive={true}
-								closeModal={handleModalClose}
-								header={'Детали ингредиента'}>
+							<Modal closeModal={handleModalClose} header='Детали ингредиента'>
 								<IngredientDetail />
+							</Modal>
+						}
+					/>
+					<Route
+						path='/feed/:number'
+						element={
+							<Modal header='' closeModal={handleModalClose}>
+								<OrderInfo />
+							</Modal>
+						}
+					/>
+					<Route
+						path='/profile/orders/:number'
+						element={
+							<Modal header='' closeModal={handleModalClose}>
+								<OrderInfo />
 							</Modal>
 						}
 					/>

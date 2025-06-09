@@ -44,12 +44,8 @@ export const BurgerConstructorFooter: FC = () => {
 		ingredientsIds.unshift(bun._id); // Добавляем булку в начало
 		ingredientsIds.push(bun._id); // Добавляем булку в конец
 
-		dispatch(setOrder(ingredientsIds)); // Теперь передаётся string[]
+		dispatch(setOrder(ingredientsIds));
 		openModal();
-		// const requestData = JSON.stringify({ ingredients: ingredientsIds });
-		// dispatch(setOrder(requestData));
-		// openModal();
-		//}
 	};
 
 	const sum = useMemo<number>(() => {
@@ -79,7 +75,7 @@ export const BurgerConstructorFooter: FC = () => {
 				Оформить заказ
 			</Button>
 			{isModalVisible && (
-				<Modal closeModal={closeModal} header='Детали ингредиента'>
+				<Modal closeModal={closeModal} header=''>
 					<Order />
 				</Modal>
 			)}

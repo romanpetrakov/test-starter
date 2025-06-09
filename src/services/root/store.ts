@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './reducer';
+import { socketMiddleware, wsActions } from '../middleware/socketMiddleware';
 
 export const store = configureStore({
-	reducer: rootReducer, // Ваш комбинированный редюсер
-	//   middleware: (getDefaultMiddleware) =>
-	//     getDefaultMiddleware().concat(
-	//       socketMiddleware(feedWsActions, baseWsURL), // Подключаем middleware для feed
-	//       socketMiddleware(ordersWsActions, baseWsURL) // Подключаем middleware для orders
-	//     ),
-	devTools: process.env.NODE_ENV !== 'production', // Включаем devTools в режиме разработки
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(socketMiddleware(wsActions)),
+	devTools: process.env.NODE_ENV !== 'production',
 });

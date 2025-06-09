@@ -1,10 +1,10 @@
 import { TIngredient } from '../../components/utils/types';
 
-export const ADD_ITEM: 'ADD_ITEM' = 'ADD_ITEM';
-export const REMOVE_ITEM: 'REMOVE_ITEM' = 'REMOVE_ITEM';
-export const SET_BUN: 'SET_BUN' = 'SET_BUN';
-export const REMOVE_BUN: 'REMOVE_BUN' = 'REMOVE_BUN';
-export const CHANGE_ORDER: 'CHANGE_ORDER' = 'CHANGE_ORDER';
+export const ADD_ITEM = 'ADD_ITEM' as const;
+export const REMOVE_ITEM = 'REMOVE_ITEM' as const;
+export const SET_BUN = 'SET_BUN' as const;
+export const REMOVE_BUN = 'REMOVE_BUN' as const;
+export const CHANGE_ORDER = 'CHANGE_ORDER' as const;
 
 interface IAddItemAction {
 	readonly type: typeof ADD_ITEM;

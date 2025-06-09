@@ -33,7 +33,7 @@ export const AppHeader = () => {
 							</div>
 						)}
 					</NavLink>
-					<NavLink to='/orders' className={' p-5'}>
+					<NavLink to='/feed' className={' p-5'}>
 						{({ isActive }) => (
 							<div
 								className={

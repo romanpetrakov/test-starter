@@ -211,11 +211,11 @@ export function loginRequest(form: TUserPassword) {
 				setToStorage('refreshToken', res.refreshToken);
 				setToStorage('accessToken', res.accessToken);
 			})
-			.catch((error) => {
+			.catch((error: Error) => {
 				console.log(error);
 				dispatch<ILoginFailedAction>({
 					type: LOGIN_FAILED,
-					error: error,
+					error: error.message,
 				});
 				throw error;
 			});
@@ -241,10 +241,10 @@ export function logoutRequest() {
 				removeFromStorage('refreshToken');
 				removeFromStorage('accessToken');
 			})
-			.catch((err) => {
+			.catch((error: Error) => {
 				dispatch<ILogoutFailedAction>({
 					type: LOGOUT_FAILED,
-					logoutError: err,
+					logoutError: error.message,
 				});
 			});
 	};
@@ -275,10 +275,10 @@ export function registerRequest(form: ILoginRegisterRequest) {
 					user: res.user,
 				});
 			})
-			.catch((err) => {
+			.catch((error: Error) => {
 				dispatch<IRegisterFailedAction>({
 					type: REGISTER_FAILED,
-					registerError: err.message,
+					registerError: error.message,
 				});
 			});
 	};
@@ -338,11 +338,11 @@ export function resetPassword(form: IPasswordResetConfirmRequest) {
 					localStorage.removeItem('forgotPage');
 				}
 			})
-			.catch((err) => {
-				alert(err.message);
+			.catch((error: Error) => {
+				alert(error.message);
 				dispatch<IResetFailedAction>({
 					type: RESET_FAILED,
-					resetError: err.message,
+					resetError: error.message,
 				});
 			});
 	};
@@ -372,10 +372,10 @@ export function updateUser(form: IUserUpdateRequest) {
 				});
 				alert('Данные успешно сохранены');
 			})
-			.catch((err) => {
+			.catch((error: Error) => {
 				dispatch<ISetUserFailedAction>({
 					type: SET_USER_FAILED,
-					error: err,
+					error: error.message,
 				});
 			});
 	};

@@ -1,0 +1,86 @@
+.container {
+	display: flex;
+	justify-content: center;
+	width: 640px;
+	flex-direction: column;
+}
+
+.header {
+	text-align: center;
+}
+
+.ingredients {
+	height: 260px;
+	overflow-y: auto;
+
+	padding-left: 0;
+}
+.ingredient {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.ingredientContainer {
+	display: flex;
+	align-items: center;
+
+	width: 60%;
+}
+
+.ingredient p {
+	width: 75%;
+}
+
+.imgWrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 64px;
+	height: 64px;
+
+	list-style-type: none;
+
+	border: 2px solid transparent; /* Делаем границу прозрачной */
+	border-radius: 100px;
+	background: radial-gradient(
+		circle,
+		rgba(128, 26, 178, 1),
+		rgba(76, 76, 255, 1)
+	);
+
+	mask-composite: exclude;
+}
+
+.imgInner {
+	width: 96%;
+	height: 96%;
+	background: rgba(19, 19, 22, 1);
+	border-radius: 100px;
+}
+
+.img {
+	filter: drop-shadow(0 0 5px #4c4cff);
+	width: 140%;
+	height: 140%;
+	margin: -20%;
+	object-fit: contain;
+}
+
+.price {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+}
+
+.total {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.totalPrice {
+	display: flex;
+	align-items: center;
+}
