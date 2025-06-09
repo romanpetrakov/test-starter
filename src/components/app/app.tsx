@@ -38,13 +38,9 @@ export const App = () => {
 	const handleModalClose = () => {
 		dispatch(removeIngredient());
 		removeFromStorage('modalState');
-
-		// Просто возвращаемся назад
-		//  		navigate(-1);
 		navigate(backgroundLocation || -1);
 	};
 
-	//debugger;
 	useEffect(() => {
 		dispatch(getIngredients());
 	}, [dispatch]);
@@ -52,38 +48,6 @@ export const App = () => {
 	useEffect(() => {
 		console.log('Location changed:', location);
 	}, [location]);
-
-	// const handleModalClose = () => {
-	// 	dispatch(removeIngredient());
-	// 	removeFromStorage('modalState');
-
-	// 	if (backgroundLocation) {
-	// 		// Явно переходим на backgroundLocation
-	// 		navigate(backgroundLocation.pathname, {
-	// 		state: { ...backgroundLocation.state },
-	// 		replace: true
-	// 		});
-	// 	} else {
-	// 		navigate(-1); // Fallback
-	// 	}
-	// };
-
-	// const handleModalClose = () => {
-	// 	console.log('handleModalClose');
-	// 	dispatch(removeIngredient());
-	// 	navigate(-1);
-	// };
-
-	// const handleModalClose2 = () => {
-	// 	console.log('handleModalClose2');
-	// 	removeFromStorage('modalState');
-	// 	navigate(-1);
-	// };
-	console.log('backgroundLocation', backgroundLocation);
-	console.log('location', location);
-
-	console.log(backgroundLocation || location);
-	console.log(backgroundLocation && 'qqqq');
 
 	return (
 		<>

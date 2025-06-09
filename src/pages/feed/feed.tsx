@@ -59,11 +59,6 @@ export const FeedPage: FC = () => {
 					pendingOrders={pendingOrders}
 				/>
 			</div>
-
-			{/*
-            <Modal isOpen={isOpen} onClose={closeAll} onOverlayClick={closeAll} onEscPress={closeAll}>
-                {isOrderModal && <OrderComponents/>}
-            </Modal> */}
 		</section>
 	);
 };

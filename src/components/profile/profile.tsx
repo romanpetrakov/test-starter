@@ -12,7 +12,7 @@ import { getUser, updateUser } from '../../services/auth/action';
 import { TUser, TUserData } from '../utils/types';
 
 export const Profile = () => {
-	console.log('Profile');
+	
 	const dispatch = useAppDispatch();
 	const user = useAppSelector((state) => state.auth.user);
 	const isLoading = useAppSelector((state) => state.auth.isLoading);
