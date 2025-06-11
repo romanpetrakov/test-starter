@@ -9,7 +9,6 @@ import { FC } from 'react';
 export const MainPage: FC = () => {
 	const { ingredients, ingredientsFetching, ingredientsFailedFetching } =
 		useAppSelector((state) => state.ingredients);
-
 	return (
 		<DndProvider backend={HTML5Backend}>
 			{ingredientsFetching && <main>Загрузка...</main>}

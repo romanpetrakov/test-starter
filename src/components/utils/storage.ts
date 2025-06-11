@@ -8,11 +8,12 @@ export const setToStorage = (key: string, value: TStorageValue): void => {
 };
 
 export const getFromStorage = <T extends TStorageValue>(
-	key: string
+	key: string,
+	defaultValue: T | null = null
 ): T | null => {
 	const item = localStorage.getItem(key);
 	if (item === null) {
-		return null;
+		return defaultValue;
 	}
 
 	try {

@@ -87,11 +87,28 @@ export type TGroup = {
 
 export type TGroupWithRef = TGroup & { ref: RefObject<HTMLDivElement> };
 
-export type TCuttentTab = {
+export type TCurrentTab = {
 	currentTab: string;
 	setCurrentTab: (tabName: string) => void;
 };
 
-export type TCuttentTabWithSetter = TCuttentTab & {
+export type TCuttentTabWithSetter = TCurrentTab & {
 	setCurrentTab: (tabName: string) => void;
+};
+
+export type TOrder = {
+	createdAt: string;
+	ingredients: Array<string>;
+	name: string;
+	number: number;
+	status: string;
+	updatedAt: string;
+	_id: string;
+};
+
+export type TOrders = {
+	total: number;
+	totalToday: number;
+	success: string;
+	orders: Array<TOrder>;
 };

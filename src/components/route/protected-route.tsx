@@ -1,33 +1,51 @@
-import { useEffect, ReactElement, FC } from 'react';
+import { useEffect, FC } from 'react';
 import { getUser } from '../../services/auth/action';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { usePersistedModal } from '../../hooks/usePersistedModal';
 
-export const ProtectedRoute: FC<{
-	isNeedAuth: boolean;
-	component: ReactElement;
-}> = ({ isNeedAuth, component }) => {
+export const ProtectedRoute: FC<{ isNeedAuth: boolean }> = ({ isNeedAuth }) => {
 	const dispatch = useAppDispatch();
+	const { user, isLoading } = useAppSelector((store) => store.auth);
+	const location = useLocation();
+	const modalLocation = usePersistedModal();
+
+	const backgroundLocation =
+		location.state?.backgroundLocation ||
+		modalLocation?.state?.backgroundLocation;
+	const from = location.state?.from || '/';
 
 	useEffect(() => {
 		dispatch(getUser());
 	}, [dispatch]);
 
-	const { user, isLoading } = useAppSelector((store) => store.auth);
-
-	const location = useLocation();
-	const from = location.state?.from || '/';
-
 	if (isLoading) {
-		return <div>загрузка</div>;
+		return <div>Загрузка...</div>;
 	}
+
+	const isModalBackground = Boolean(backgroundLocation);
+	const isPersistedModal = Boolean(modalLocation);
+
+	if (isModalBackground || isPersistedModal) {
+		return <Outlet />;
+	}
+
 	if (!isNeedAuth && user) {
-		return <Navigate to={from} />;
+		return <Navigate to={from} replace />;
 	}
 
 	if (isNeedAuth && !user) {
-		return <Navigate to='/login' replace />;
+		return (
+			<Navigate
+				to='/login'
+				state={{
+					from: location,
+					backgroundLocation: location.state?.backgroundLocation,
+				}}
+				replace
+			/>
+		);
 	}
 
-	return component;
+	return <Outlet />;
 };
