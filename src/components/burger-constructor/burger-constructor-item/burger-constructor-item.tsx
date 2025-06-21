@@ -96,7 +96,8 @@ export const BurgerConstructorItem: FC<TConstructorItem> = ({
 						className={style.droppable}
 						ref={ref}
 						data-handler-id={handlerId}
-						style={{ opacity: opacity }}>
+						style={{ opacity: opacity }}
+						data-testid={'constructor-item-' + item._id}>
 						<DragIcon type='primary' className={style.dragImg + ' mt-8'} />
 
 						<ConstructorElement
@@ -116,7 +117,16 @@ export const BurgerConstructorItem: FC<TConstructorItem> = ({
 		);
 	}
 	return (
-		<div className={style.bunItem + ' ml-8 mr-8 '} style={{ opacity: opacity }}>
+		<div
+			className={style.bunItem + ' ml-8 mr-8 '}
+			style={{ opacity: opacity }}
+			data-testid={
+				item && type === 'top'
+					? 'constructor-bun-top'
+					: item && type === 'bottom'
+						? 'constructor-bun-bottom'
+						: undefined
+			}>
 			{item ? (
 				<ConstructorElement
 					type={item.type === 'bun' ? type || undefined : undefined}

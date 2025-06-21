@@ -13,7 +13,7 @@ export type TIngredientsState = {
 	ingredientsFailedFetching: boolean;
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
 	ingredients: [],
 	ingredientsFetching: false,
 	ingredientsSuccessFetching: false,

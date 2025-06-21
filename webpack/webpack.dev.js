@@ -10,7 +10,12 @@ module.exports = {
 		// compress: true, // это ускорит загрузку в режиме разработки
 		port: 8080, // порт, чтобы открывать сайт по адресу localhost:8080, но можно поменять порт
 		open: true, // сайт будет открываться сам при запуске npm run dev
-		hot: true,
+		//hot: true,
+		hot: !process.env.CYPRESS,
+  		liveReload: !process.env.CYPRESS,
+		client: {
+    		overlay: false, // Отключает оверлей с ошибками
+  		},
 	},
 	plugins: [new ReactRefreshWebpackPlugin()],
 };

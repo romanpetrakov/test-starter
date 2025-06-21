@@ -9,11 +9,16 @@ const production = process.env.NODE_ENV === 'production';
 module.exports = {
 	entry: path.resolve(__dirname, '..', './src/index.tsx'), //точка входа в наше приложение содержит абсолютный путь к index.ts
 	output: {
-		path: path.resolve(__dirname, '..', './dist'), //путь куда будет собираться наш проект
+//		path: path.resolve(__dirname, '..', './dist'), //путь куда будет собираться наш проект
+//		filename: production
+//			? 'static/scripts/[name].[contenthash].js'
+//			: 'static/scripts/[name].js', // имя нашего бандла
+		publicPath: "/",
+//		publicPath: '/test-starter/',
+		path: path.resolve(__dirname, '..', './build'),
 		filename: production
 			? 'static/scripts/[name].[contenthash].js'
-			: 'static/scripts/[name].js', // имя нашего бандла
-		publicPath: "/",
+			: 'static/scripts/[name].js',
 	},
 	//Нужно помочь вебпаку научится работать с jsx и tsx файлами для этого используют ts loader
 	module: {
@@ -86,6 +91,9 @@ module.exports = {
 	},
 	plugins: [
 		new HTMLWebpackPlugins({
+			// template: path.resolve(__dirname, '..', './public/index.html'),
+  			// publicPath: '/test-starter/',
+  			// filename: 'index.html',
 			template: path.resolve(__dirname, '..', './public/index.html'),
 		}),
 		new CleanWebpackPlugin(),

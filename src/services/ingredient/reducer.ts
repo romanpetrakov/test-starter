@@ -10,7 +10,7 @@ type TIngredientState = {
 	showModal: boolean;
 };
 
-const initialState = {
+export const initialState = {
 	ingredient: null,
 	showModal: false,
 };

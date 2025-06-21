@@ -42,7 +42,7 @@ type TAuthState = {
 	setUserError: string | null;
 	getUserError: string | null;
 };
-const initialState = {
+export const initialState: TAuthState = {
 	user: null,
 	isLoading: false,
 	isLoadedLogin: false,
@@ -64,7 +64,7 @@ const initialState = {
 export const authReducer = (
 	state: TAuthState = initialState,
 	action: TAuthActions
-) => {
+): TAuthState => {
 	switch (action.type) {
 		case LOGIN: {
 			return {
@@ -145,7 +145,7 @@ export const authReducer = (
 				...state,
 				isLoading: true,
 				isLoadedReset: false,
-				resetError: false,
+				resetError: null,
 			};
 		}
 		case RESET_SUCCESS: {
@@ -166,7 +166,7 @@ export const authReducer = (
 		case REGISTER: {
 			return {
 				...state,
-				isLoading: false,
+				isLoading: true,
 				isLoadedRegister: false,
 				registerError: null,
 			};
@@ -190,7 +190,7 @@ export const authReducer = (
 		case GET_USER: {
 			return {
 				...state,
-				isLoading: false,
+				isLoading: true,
 				isLoadedUser: false,
 				getUserError: null,
 			};
@@ -214,7 +214,7 @@ export const authReducer = (
 		case SET_USER: {
 			return {
 				...state,
-				isLoading: false,
+				isLoading: true,
 				isSettedUser: false,
 				setUserError: null,
 			};

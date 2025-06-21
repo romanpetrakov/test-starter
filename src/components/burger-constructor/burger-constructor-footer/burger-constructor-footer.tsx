@@ -41,8 +41,8 @@ export const BurgerConstructorFooter: FC = () => {
 		}
 
 		const ingredientsIds = ingredients.map((elem: TIngredient) => elem._id);
-		ingredientsIds.unshift(bun._id); // Добавляем булку в начало
-		ingredientsIds.push(bun._id); // Добавляем булку в конец
+		ingredientsIds.unshift(bun._id);
+		ingredientsIds.push(bun._id);
 
 		dispatch(setOrder(ingredientsIds));
 		openModal();
@@ -53,9 +53,9 @@ export const BurgerConstructorFooter: FC = () => {
 		const ingredientsPrice =
 			ingredients.length > 0
 				? ingredients.reduce(
-						(sum: number, elem: TIngredient) => (sum += elem.price),
-						0
-				  )
+					(sum: number, elem: TIngredient) => (sum += elem.price),
+					0
+				)
 				: 0;
 		return bunPrice * 2 + ingredientsPrice;
 	}, [bun, ingredients]);
@@ -63,7 +63,11 @@ export const BurgerConstructorFooter: FC = () => {
 	return (
 		<div className={styles.footer + ' mt-10 mr-4 pr-4'}>
 			<p>
-				<span className='text text_type_digits-medium mr-2'>{sum}</span>
+				<span
+					className='text text_type_digits-medium mr-2'
+					data-testid='order-sum'>
+					{sum}
+				</span>
 				<CurrencyIcon type='primary' />
 			</p>
 			<Button
@@ -71,7 +75,8 @@ export const BurgerConstructorFooter: FC = () => {
 				type='primary'
 				size='medium'
 				extraClass='ml-10'
-				onClick={handleClick}>
+				onClick={handleClick}
+				data-testid='order-btn'>
 				Оформить заказ
 			</Button>
 			{isModalVisible && (

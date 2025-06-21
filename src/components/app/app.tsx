@@ -57,21 +57,21 @@ export const App = () => {
 			<AppHeader />
 			<Routes location={backgroundLocation || location}>
 				{/* Общедоступные маршруты */}
-				<Route path='/' element={<MainPage />} />
+				<Route index element={<MainPage />} />
 				<Route path='/ingredients/:id' element={<IngredientDetailsPage />} />
-				<Route path='feed' element={<FeedPage />} />
-				<Route path='feed/:number' element={<OrderInfoPage />} />
+				<Route path='/feed' element={<FeedPage />} />
+				<Route path='/feed/:number' element={<OrderInfoPage />} />
 				<Route element={<ProtectedRoute isNeedAuth={true} />}>
-					<Route path='profile/orders/:number' element={<OrderInfoPage />} />
+					<Route path='/profile/orders/:number' element={<OrderInfoPage />} />
 				</Route>
 
 				<Route element={<Layout />}>
 					{/* Незащищенные маршруты (только для неавторизованных) */}
 					<Route element={<ProtectedRoute isNeedAuth={false} />}>
-						<Route path='login' element={<LoginPage />} />
-						<Route path='register' element={<RegisterPage />} />
-						<Route path='forgot-password' element={<ForgotPasswordPage />} />
-						<Route path='reset-password' element={<ResetPasswordPage />} />
+						<Route path='/login' element={<LoginPage />} />
+						<Route path='/register' element={<RegisterPage />} />
+						<Route path='/forgot-password' element={<ForgotPasswordPage />} />
+						<Route path='/reset-password' element={<ResetPasswordPage />} />
 					</Route>
 
 					{/* Защищенные маршруты (только для авторизованных) */}
@@ -80,7 +80,7 @@ export const App = () => {
 							<Route index element={<Profile />} />
 							<Route path='orders' element={<OrdersPage />} />
 						</Route>
-						<Route path='profile/orders/:number' element={<OrderInfoPage />} />
+						<Route path='/profile/orders/:number' element={<OrderInfoPage />} />
 					</Route>
 				</Route>
 				<Route path='*' element={<NotFoundPage />} />

@@ -18,7 +18,7 @@ type TWSState = {
 	feedRequest?: boolean;
 };
 
-const initialState: TWSState = {
+export const initialState: TWSState = {
 	wsConnected: undefined,
 	total: undefined,
 	totalToday: undefined,

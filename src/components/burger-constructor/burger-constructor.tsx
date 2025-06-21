@@ -1,6 +1,6 @@
 import styles from './burger-constructor.module.scss';
 import { BurgerConstructorItem } from './burger-constructor-item/burger-constructor-item';
-import { BurgerConstructorFooter } from './burger-cosntructor-footer/burger-constructor-footer';
+import { BurgerConstructorFooter } from './burger-constructor-footer/burger-constructor-footer';
 
 import { useDrop } from 'react-dnd';
 import { v4 as uuidv4 } from 'uuid';
@@ -60,10 +60,18 @@ export const BurgerConstructor: FC = () => {
 	};
 
 	return (
-		<section className={styles.section + ' mt-25'} ref={dropRef}>
-			<div className={styles.bunList + ' ml-8 mb-4'}>
+		<section
+			className={styles.section + ' mt-25'}
+			ref={dropRef}
+			data-testid='constructor-area'>
+			{/* Верхняя булка */}
+			<div
+				className={styles.bunList + ' ml-8 mb-4'}
+				data-testid='constructor-bun-top'>
 				<BurgerConstructorItem item={bun} type='top' />
 			</div>
+
+			{/* Начинки и соусы */}
 			<div
 				className={
 					(ingredients.length == 0 ? styles.emptyList : styles.list) + ' ml-8'
@@ -72,25 +80,30 @@ export const BurgerConstructor: FC = () => {
 				{ingredients.length > 0 ? (
 					ingredients
 						.filter((item: TIngredient) => item.type !== 'bun')
-						.map((elem: TIngredient, index: number) => {
-							return (
-								<BurgerConstructorItem
-									key={elem.uniqueId}
-									item={elem}
-									uuid={elem.uniqueId}
-									indexInArray={index}
-									moveIngredient={moveIngredient}
-								/>
-							);
-						})
+						.map((elem: TIngredient, index: number) => (
+							<BurgerConstructorItem
+								key={elem.uniqueId}
+								item={elem}
+								uuid={elem.uniqueId}
+								indexInArray={index}
+								moveIngredient={moveIngredient}
+								data-testid={`filling-item-${index}`}
+							/>
+						))
 				) : (
-					<BurgerConstructorItem />
+					<BurgerConstructorItem data-testid='empty-constructor-placeholder' />
 				)}
 			</div>
-			<div className={styles.bun + ' ml-8'}>
+
+			{/* Нижняя булка */}
+			<div
+				className={styles.bun + ' ml-8'}
+				data-testid='constructor-bun-bottom'>
 				<BurgerConstructorItem item={bun} type='bottom' />
 			</div>
-			<BurgerConstructorFooter />
+
+			{/* Футер с кнопкой заказа */}
+			<BurgerConstructorFooter data-testid='constructor-footer' />
 		</section>
 	);
 };
