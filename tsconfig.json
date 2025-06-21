@@ -26,6 +26,6 @@
 			"@utils/*": ["./src/utils/*"]
 		}
 	},
-	"outDir": "./dist/",
+	"outDir": "./build/",
 	"include": ["src/**/*", "src/services"]
 }

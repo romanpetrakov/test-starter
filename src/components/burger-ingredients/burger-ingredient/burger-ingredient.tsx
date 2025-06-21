@@ -59,7 +59,8 @@ export const BurgerIngredient: FC<{ ingredient: TIngredient }> = ({
 					className={styles.ingredient + ' ml-4 mb-6 mr-2'}
 					onClick={openModal}
 					aria-hidden='true'
-					ref={dragRef}>
+					ref={dragRef}
+					data-testid={'ingredient-' + ingredient._id}>
 					<picture>
 						<source srcSet={ingredient.image} type='image/svg+xml' />
 						<img src={ingredient.image} alt={ingredient.name} />
@@ -71,7 +72,9 @@ export const BurgerIngredient: FC<{ ingredient: TIngredient }> = ({
 					<span className={styles.name + ' pt-1 text text_type_main-default'}>
 						{ingredient.name}
 					</span>
-					<Counter count={countIngredient} size='default' extraClass='m-1' />
+					<div data-testid='ingredient-counter'>
+						<Counter count={countIngredient} size='default' extraClass='m-1' />
+					</div>
 				</div>
 			</Link>
 		)

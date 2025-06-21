@@ -23,7 +23,7 @@ export const OrdersPage: FC = () => {
 	return (
 		<section>
 			<div>
-				<Feed orders={orders} withStatus={true} context='profile' />
+				<Feed orders={orders} withStatus={true} context='/profile' />
 			</div>
 		</section>
 	);

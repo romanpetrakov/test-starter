@@ -210,6 +210,7 @@ export function loginRequest(form: TUserPassword) {
 				});
 				setToStorage('refreshToken', res.refreshToken);
 				setToStorage('accessToken', res.accessToken);
+				return res;
 			})
 			.catch((error: Error) => {
 				console.log(error);

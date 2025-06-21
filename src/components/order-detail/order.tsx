@@ -8,7 +8,7 @@ export const Order: FC = () => {
 	);
 
 	return (
-		<div className={styles.order + ' mt-5 mr-10'}>
+		<div className={styles.order + ' mt-5 mr-10'} data-testid='order-modal'>
 			{requestInProgress ? (
 				<span className='text text_type_main-medium'>Заказ обрабатывается</span>
 			) : sendOrderFailed ? (

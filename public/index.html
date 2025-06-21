@@ -7,7 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
+<script>
+  (function() {
+    const redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect !== location.pathname) {
+      history.replaceState(null, '', redirect);
+    }
+  })();
+</script>
 <body style="overflow: hidden; position: relative;">
     <div id="root" style="position: absolute;"></div>
 	<div id="react-modal"></div>

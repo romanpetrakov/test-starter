@@ -10,7 +10,6 @@ import {
 	WS_GET_MESSAGE,
 	WS_SEND_MESSAGE,
 } from '../../services/websocket/actions';
-import { getFromStorage } from '../../components/utils/storage';
 import { TOrder } from '../../components/utils/types';
 
 export type TWsActions = {

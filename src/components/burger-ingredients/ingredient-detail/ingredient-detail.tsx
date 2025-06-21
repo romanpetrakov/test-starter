@@ -16,7 +16,7 @@ export const IngredientDetail: FC = () => {
 
 	return (
 		selectedIngredient && (
-			<div className={styles.ingredient}>
+			<div className={styles.ingredient} data-testid='ingredient-details-modal'>
 				<img
 					src={selectedIngredient.image_large}
 					alt={selectedIngredient.name}

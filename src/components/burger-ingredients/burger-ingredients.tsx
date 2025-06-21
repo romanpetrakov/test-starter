@@ -10,7 +10,11 @@ export const BurgerIngredients: FC = () => {
 	return (
 		<section className={styles.ingredients}>
 			<p className={'mt-10 mb-5 text text_type_main-large'}>Соберите бургер</p>
-			<Tabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
+			<Tabs
+				currentTab={currentTab}
+				setCurrentTab={setCurrentTab}
+				data-testid={'tabs'}
+			/>
 			<Ingredients setCurrentTab={setCurrentTab} />
 		</section>
 	);

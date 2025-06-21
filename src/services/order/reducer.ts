@@ -11,7 +11,7 @@ import {
 	CLEAR_ORDER_INFO,
 } from './action';
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
 	order: null,
 	orderInfo: null,
 	requestInProgress: false,

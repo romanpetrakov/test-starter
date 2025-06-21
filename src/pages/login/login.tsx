@@ -29,16 +29,16 @@ export const LoginPage: FC = () => {
 	};
 
 	const handleToRegister = () => {
-		navigate('/register', { state: location });
+		navigate('register', { state: location });
 	};
 
 	const handleToForgotPassword = () => {
-		navigate('/forgot-password', { state: location });
+		navigate('forgot-password', { state: location });
 	};
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		try {
-			event.preventDefault();
 			dispatch(loginRequest(form));
 			handleToHome();
 		} catch (err) {
@@ -49,32 +49,35 @@ export const LoginPage: FC = () => {
 	return (
 		<div className={styles.page}>
 			<h1 className='text text_type_main-medium mb-6'>Вход</h1>
-			<form onSubmit={handleSubmit} className={styles.form}>
-				<EmailInput
-					onChange={handleChange}
-					value={form.email}
-					name='email'
-					extraClass='mb-6'
-				/>
-				<PasswordInput
-					onChange={handleChange}
-					value={form.password}
-					extraClass='mb-6'
-					name='password'
-				/>
+			<form
+				onSubmit={handleSubmit}
+				className={styles.form}
+				data-testid='login-form'>
+				<div className='mb-6' data-testid='email-input'>
+					<EmailInput onChange={handleChange} value={form.email} name='email' />
+				</div>
+				<div className='mb-6' data-testid='password-input'>
+					<PasswordInput
+						onChange={handleChange}
+						value={form.password}
+						extraClass='mb-6'
+						name='password'
+					/>
+				</div>
 				{loginError && (
 					<p className='text text_type_main-default text_color_error'>
 						{loginError}
 					</p>
 				)}
-				<Button
-					htmlType='submit'
-					type='primary'
-					size='large'
-					disabled={isLoading}
-					extraClass='mb-20'>
-					{isLoading ? 'Загрузка...' : 'Войти'}
-				</Button>
+				<div className='mb-20' data-testid='login-submit-btn'>
+					<Button
+						htmlType='submit'
+						type='primary'
+						size='large'
+						disabled={isLoading}>
+						{isLoading ? 'Загрузка...' : 'Войти'}
+					</Button>
+				</div>
 			</form>
 			<p className='text text_type_main-default text_color_inactive mb-2'>
 				Вы новый пользователь?

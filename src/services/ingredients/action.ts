@@ -53,8 +53,7 @@ export function getIngredients() {
 					throw new Error('Failed to fetch ingredients');
 				}
 			})
-			.catch((error) => {
-				console.error('error:' + error);
+			.catch(() => {
 				dispatch<IGetIngredientFailedAction>({
 					type: GET_INGREDIENTS_FAILED,
 				});

@@ -13,7 +13,7 @@ export type TSelectIngredientsState = {
 	ingredients: TIngredient[];
 };
 
-const initialState = {
+export const initialState = {
 	bun: null as TIngredient | null,
 	ingredients: [] as TIngredient[],
 };

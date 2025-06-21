@@ -23,7 +23,7 @@ export const ForgotPasswordPage: FC = () => {
 	};
 
 	const handleLogin = () => {
-		navigate('/login', { state: location });
+		navigate('login', { state: location });
 	};
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -34,7 +34,7 @@ export const ForgotPasswordPage: FC = () => {
 	useEffect(() => {
 		if (isLoadedForgot) {
 			setToStorage('isLoadedForgot', true);
-			navigate('/reset-password');
+			navigate('reset-password');
 		}
 	}, [isLoadedForgot, navigate]);
 
