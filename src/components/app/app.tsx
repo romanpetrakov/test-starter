@@ -30,6 +30,8 @@ import { OrderInfoPage } from '../../pages/order-info/order-info';
 import { removeFromStorage } from '../utils/storage';
 import { usePersistedModal } from '../../hooks/usePersistedModal';
 
+console.log('Current NODE_ENV:', process.env.NODE_ENV);
+
 export const App = () => {
 	const location = useLocation();
 	const navigate: NavigateFunction = useNavigate();
@@ -58,29 +60,29 @@ export const App = () => {
 			<Routes location={backgroundLocation || location}>
 				{/* Общедоступные маршруты */}
 				<Route index element={<MainPage />} />
-				<Route path='/ingredients/:id' element={<IngredientDetailsPage />} />
-				<Route path='/feed' element={<FeedPage />} />
-				<Route path='/feed/:number' element={<OrderInfoPage />} />
+				<Route path='ingredients/:id' element={<IngredientDetailsPage />} />
+				<Route path='feed' element={<FeedPage />} />
+				<Route path='feed/:number' element={<OrderInfoPage />} />
 				<Route element={<ProtectedRoute isNeedAuth={true} />}>
-					<Route path='/profile/orders/:number' element={<OrderInfoPage />} />
+					<Route path='profile/orders/:number' element={<OrderInfoPage />} />
 				</Route>
 
 				<Route element={<Layout />}>
 					{/* Незащищенные маршруты (только для неавторизованных) */}
 					<Route element={<ProtectedRoute isNeedAuth={false} />}>
-						<Route path='/login' element={<LoginPage />} />
-						<Route path='/register' element={<RegisterPage />} />
-						<Route path='/forgot-password' element={<ForgotPasswordPage />} />
-						<Route path='/reset-password' element={<ResetPasswordPage />} />
+						<Route path='login' element={<LoginPage />} />
+						<Route path='register' element={<RegisterPage />} />
+						<Route path='forgot-password' element={<ForgotPasswordPage />} />
+						<Route path='reset-password' element={<ResetPasswordPage />} />
 					</Route>
 
 					{/* Защищенные маршруты (только для авторизованных) */}
 					<Route element={<ProtectedRoute isNeedAuth={true} />}>
-						<Route path='/profile' element={<ProfilePage />}>
+						<Route path='profile' element={<ProfilePage />}>
 							<Route index element={<Profile />} />
 							<Route path='orders' element={<OrdersPage />} />
 						</Route>
-						<Route path='/profile/orders/:number' element={<OrderInfoPage />} />
+						<Route path='profile/orders/:number' element={<OrderInfoPage />} />
 					</Route>
 				</Route>
 				<Route path='*' element={<NotFoundPage />} />
@@ -88,7 +90,7 @@ export const App = () => {
 			{backgroundLocation && (
 				<Routes>
 					<Route
-						path='/ingredients/:id'
+						path='ingredients/:id'
 						element={
 							<Modal closeModal={handleModalClose} header='Детали ингредиента'>
 								<IngredientDetail />
@@ -96,7 +98,7 @@ export const App = () => {
 						}
 					/>
 					<Route
-						path='/feed/:number'
+						path='feed/:number'
 						element={
 							<Modal header='' closeModal={handleModalClose}>
 								<OrderInfo />
@@ -104,7 +106,7 @@ export const App = () => {
 						}
 					/>
 					<Route
-						path='/profile/orders/:number'
+						path='profile/orders/:number'
 						element={<ProtectedRoute isNeedAuth={true} />}>
 						<Route
 							index

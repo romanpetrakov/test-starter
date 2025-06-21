@@ -29,7 +29,7 @@ export const BurgerConstructorFooter: FC = () => {
 
 	const handleClick = () => {
 		if (!user) {
-			return navigate('/login');
+			return navigate('login');
 		}
 		if (!bun) {
 			alert('Нужно выбрать булку');

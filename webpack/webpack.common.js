@@ -13,12 +13,13 @@ module.exports = {
 //		filename: production
 //			? 'static/scripts/[name].[contenthash].js'
 //			: 'static/scripts/[name].js', // имя нашего бандла
-		publicPath: "/",
+		//publicPath: "/",
 //		publicPath: '/test-starter/',
 		path: path.resolve(__dirname, '..', './build'),
 		filename: production
 			? 'static/scripts/[name].[contenthash].js'
 			: 'static/scripts/[name].js',
+		publicPath: process.env.NODE_ENV === 'production' ? '/test-starter/' : '/',
 	},
 	//Нужно помочь вебпаку научится работать с jsx и tsx файлами для этого используют ts loader
 	module: {

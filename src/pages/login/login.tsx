@@ -29,11 +29,11 @@ export const LoginPage: FC = () => {
 	};
 
 	const handleToRegister = () => {
-		navigate('/register', { state: location });
+		navigate('register', { state: location });
 	};
 
 	const handleToForgotPassword = () => {
-		navigate('/forgot-password', { state: location });
+		navigate('forgot-password', { state: location });
 	};
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
